@@ -27,21 +27,14 @@ export default function BasicTable({ data, handleSort, sortName, sortCount }: Pr
                     <TableHead>
                         <TableRow>
                             <TableCell align="left">
-                            <TableSortLabel
-                                active={true}
-                                direction={sortName}
-                                onClick={() => handleSort('name',sortName)}
-                                >Name
-                            </TableSortLabel>
-
+                                <TableSortLabel active={true} direction={sortName} onClick={() => handleSort('name', sortName)}>
+                                    Name
+                                </TableSortLabel>
                             </TableCell>
                             <TableCell align="right">
-                            <TableSortLabel
-                                active={true}
-                                direction={sortCount}
-                                onClick={() => handleSort('count',sortCount)}
-                                >Questions
-                            </TableSortLabel>
+                                <TableSortLabel active={true} direction={sortCount} onClick={() => handleSort('count', sortCount)}>
+                                    Questions
+                                </TableSortLabel>
                             </TableCell>
                         </TableRow>
                     </TableHead>
@@ -49,7 +42,7 @@ export default function BasicTable({ data, handleSort, sortName, sortCount }: Pr
                         {data.map(({ name, count }: dataProps) => (
                             <TableRow key={`row-${name}`} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                 <TableCell align="left">
-                                    <Link href={`https://stackoverflow.com/questions/tagged/${name}`}target="_blank" title={name}>
+                                    <Link href={`https://stackoverflow.com/questions/tagged/${name}`} target="_blank" title={name}>
                                         {name}
                                     </Link>
                                 </TableCell>

@@ -9,8 +9,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 function App() {
-    const [data, setData] = useState([]);    
-    const typeSort: string[] = ['Popular','Name', 'Activity'];
+    const [data, setData] = useState([]);
+    const typeSort: string[] = ['Popular', 'Name', 'Activity'];
     const pageSizeArray: number[] = [15, 30, 50];
     const [pageSize, setPageSize] = useState(pageSizeArray[0]);
     const [errorRowsPage, setErrorRowsPage] = useState(false);
@@ -40,7 +40,7 @@ function App() {
 
         fetchData();
     }, [page, sort, pageSize, total]);
-    
+
     const handleChangeSort = (el) => {
         setSort(el.target.value);
     };
@@ -51,49 +51,42 @@ function App() {
 
     const handleChangePageSize = (el) => {
         const getRows = el.target.value;
-        if(getRows < 101 ){
+        if (getRows < 101) {
             setPageSize(+el.target.value);
+        } else {
+            setErrorRowsPage(true);
         }
-        else {
-            setErrorRowsPage(true)
-        }
-        
     };
 
     const compareValues = (key, order = 'asc') => {
         return function innerSort(a, b) {
-          if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
-            return 0;
-          }
-      
-          const varA = (typeof a[key] === 'string')
-            ? a[key].toUpperCase() : a[key];
-          const varB = (typeof b[key] === 'string')
-            ? b[key].toUpperCase() : b[key];
-      
-          let comparison = 0;
-          if (varA > varB) {
-            comparison = 1;
-          } else if (varA < varB) {
-            comparison = -1;
-          }
-          return (
-            (order === 'desc') ? (comparison * -1) : comparison
-          );
+            if (!Object.prototype.hasOwnProperty.call(a, key) || !Object.prototype.hasOwnProperty.call(b, key)) {
+                return 0;
+            }
+
+            const varA = typeof a[key] === 'string' ? a[key].toUpperCase() : a[key];
+            const varB = typeof b[key] === 'string' ? b[key].toUpperCase() : b[key];
+
+            let comparison = 0;
+            if (varA > varB) {
+                comparison = 1;
+            } else if (varA < varB) {
+                comparison = -1;
+            }
+            return order === 'desc' ? comparison * -1 : comparison;
         };
-      }
-      
+    };
+
     const handleSort = (field: string, order: string) => {
         const newData = [...data];
         const newArray = newData.sort(compareValues(field, order));
         setData(newArray);
-        if(field === 'name'){
-            setSortName(order === 'asc' ? 'desc' : 'asc' )
+        if (field === 'name') {
+            setSortName(order === 'asc' ? 'desc' : 'asc');
+        } else {
+            setSortCount(order === 'asc' ? 'desc' : 'asc');
         }
-        else{
-            setSortCount(order === 'asc' ? 'desc' : 'asc' )
-        };
-    }
+    };
 
     return (
         <>
@@ -108,20 +101,26 @@ function App() {
                 <div className="flex-space">
                     <ButtonGroup variant="contained" style={{ marginBottom: 40 }} aria-label="Basic button group">
                         {typeSort.map((type) => (
-                            <Button primary value={type} variant={type === sort ? 'outlined' : 'contained'} key={type} onClick={(e) => handleChangeSort(e)}>
+                            <Button
+                                primary
+                                value={type}
+                                variant={type === sort ? 'outlined' : 'contained'}
+                                key={type}
+                                onClick={(e) => handleChangeSort(e)}
+                            >
                                 {type}
                             </Button>
                         ))}
-                        
                     </ButtonGroup>
-                    <TextField 
-                        id="outlined-basic" 
+                    <TextField
+                        id="outlined-basic"
                         label="Rows per page"
                         type="number"
                         variant="outlined"
                         onChange={(e) => handleChangePageSize(e)}
                         helperText={errorRowsPage && 'Error max value is 100'}
-                        size="small"                    />
+                        size="small"
+                    />
                 </div>
                 {isError && <div>Something went wrong ...</div>}
                 {isLoading && (
@@ -130,10 +129,10 @@ function App() {
                     </Box>
                 )}
                 {!isLoading && (
-                    <Table 
-                        data={data} 
-                        total={total} 
-                        page={page} 
+                    <Table
+                        data={data}
+                        total={total}
+                        page={page}
                         pageSize={pageSize}
                         handleChangePage={handleChangePage}
                         handleSort={handleSort}
