@@ -29,6 +29,6 @@ export default {
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
 ----------------------------------------------------------------------------
-Warning, - if you want to get more rows than 25 pages, you must have a key from stackexchange, create an .env file and enter the key with the name below
+Warning, - if you want to get more page than 25 pages, you must have a key from stackexchange, create an .env file and enter the key with the name below
 
 VITE_REACT_APP_KEY = 'xxx'

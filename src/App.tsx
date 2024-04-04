@@ -27,7 +27,7 @@ function App() {
             setIsError(false);
             try {
                 const result = await axios(
-                    `https://api.stackexchange.com/2.3/tags?page=${page + 1}&order=desc&sort=${sort}&site=stackoverflow&pagesize=${pageSize}&filter=!*MKJ1Oeozc3hDgqM&key=${import.meta.env.VITE_REACT_APP_KEY}`
+                    `https://api.stackexchange.com/2.3/tags?page=${page + 1}&order=desc&sort=${sort}&site=stackoverflow&pagesize=${pageSize}&filter=!*MKJ1Oeozc3hDgqM&key=${import.meta.env.VITE_REACT_APP_KEY || ''}`
                 );
                 setTotal(result.data.total);
                 setData(result.data.items);
